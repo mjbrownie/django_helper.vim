@@ -72,7 +72,7 @@ def url_to_tag(url):
 
 template_paths = []
 
-if vim.eval('g:djhelp_setup_templates') == 1 or True:
+if int(vim.eval('g:djhelp_setup_templates') )== 1:
     try:
         from settings import INSTALLED_APPS, TEMPLATE_DIRS
         import sys,os
