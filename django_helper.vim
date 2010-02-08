@@ -124,6 +124,16 @@ def test_client(url, post=None , strip_tags = False):
     except:
         vim.command("echo 'Failed to append vim'")
 
+def client_templates(url, post=None,strip_tags=False):
+    try:
+        test_client(url)
+        #debug_toolbar leaves <samp> tags at the botto
+        vim.command("g!/<samp>/d")
+        vim.command('%s#<\_.\{-1,}>##g')
+        vim.command('norm <<<<<<<')
+    except:
+        pass
+
 try:
     from django.db.models.loading import get_models, get_app, get_apps, get_model
     import os
@@ -209,3 +219,5 @@ com! -nargs=1 DClient python test_client(<f-args>)
 com! -nargs=1 DGetAppModels python get_app_models(<f-args>)
 com! -nargs=* DGetModelFields python get_field_list(<f-args>)
 com! DAdminGenerator python generate_admin()
+
+com! -nargs=1 DCTemplates python client_templates (<f-args>)
